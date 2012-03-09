@@ -36,7 +36,7 @@ object Bookings extends Controller {
 	
 	def confirm() = LoggedIn.AuthenticatedAction { (user, request) =>
 	  	bookingForm.bindFromRequest()(request).fold(
-	  	    errors => BadRequest("Bad"),
+	  	    errors => BadRequest,
 	  	    booking => {
 	  	      val tostore = booking.copy(username = user)
 	  	      val stored_booking = Booking.insert(tostore)

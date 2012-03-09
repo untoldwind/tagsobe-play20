@@ -6,6 +6,7 @@ import play.api.data._
 import play.api.data.Forms._
 
 import models.LoginData
+import models.Customer
 
 object Login extends Controller {
 	val loginForm: Form[LoginData] = Form(
@@ -30,11 +31,13 @@ object Login extends Controller {
 	
 	def authenticate() = Action{ implicit request =>
 	  	loginForm.bindFromRequest.fold(
-	  	    errors => { println(errors)
-	  	      BadRequest("Bod") },
-	  	    loginData => MovedPermanently(loginData.url.replace(" ", "+")).withSession(
-	  	          "user" -> loginData.username 
-	  	    )
+	  	    errors => BadRequest,
+	  	    loginData => {
+	  	       Customer.findByUsername(loginData.username).map { customer =>
+	  	         MovedPermanently(loginData.url.replace(" ", "+")).withSession(
+	  	            "user" -> loginData.username) 
+	  	       }.getOrElse(BadRequest)	  	       	  
+	  	    } 
 	  	)
 	}
 }
