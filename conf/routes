@@ -1,0 +1,19 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index
+
+GET     /search                     controllers.Hotels.search
+GET     /hotels/search              controllers.Hotels.result(searchString: String ?= "", pageSize: Int ?= 5)
+GET     /hotels/:id                 controllers.Hotels.detail(id: Long)
+GET     /booking                    controllers.Bookings.booking(hotelId: Long)
+POST    /booking/confirm            controllers.Bookings.confirm
+POST    /booking/book               controllers.Bookings.book
+
+GET     /login                      controllers.Login.index(url: String ?= "/")
+POST    /authenticate               controllers.Login.authenticate
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

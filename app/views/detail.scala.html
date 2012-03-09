@@ -1,0 +1,23 @@
+@(hotel: Hotel)
+
+@main(hotel.name) {
+
+<h1>@hotel.name</h1>
+<address>
+	@hotel.address
+	<br />
+	@hotel.city, @hotel.state, @hotel.zip
+	<br />
+	@hotel.country
+</address>
+<form action="/booking" method="get">
+	<p>
+		Nightly Rate:
+		@hotel.price
+	</p>
+	<input type="hidden" name="hotelId" value="@hotel.id" />
+	<div>
+		<button type="submit">Book Hotel</button>
+	</div>
+</form>
+}

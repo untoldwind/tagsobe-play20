@@ -1,0 +1,33 @@
+@(hotels: Seq[Hotel])
+
+@layout("Hotel Results") {
+
+<h1>Hotel Results</h1>
+<p>
+	<a id="changeSearchLink" href="/hotels/search?searchString=a&pageSize=5">Change Search</a>
+</p>
+<div id="hotelResults">
+	<table class="summary">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Address</th>
+				<th>City, State</th>
+				<th>Zip</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			@hotels.map { hotel =>			
+				<tr>
+					<td>@hotel.name</td>
+					<td>@hotel.address</td>
+					<td>@hotel.city</td>
+					<td>@hotel.zip</td>
+					<td><a href="/hotels/@hotel.id">View Hotel</a></td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>	
+}
